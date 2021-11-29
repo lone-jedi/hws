@@ -1,4 +1,4 @@
-package org.campus.hws;
+package org.campus.hws.service;
 
 import org.campus.hws.dao.SolutionDao;
 import org.campus.hws.entity.Solution;
