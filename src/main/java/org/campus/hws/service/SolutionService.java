@@ -28,4 +28,10 @@ public class SolutionService {
         System.out.println("Solution added");
     }
 
+    public List<Solution> findByTask(String taskName) {
+        List<Solution> solutions = solutionDao.findByTask(taskName);
+        System.out.println(String.format("Obtain solutions by task '%s': %d",
+                taskName, solutions.size()));
+        return solutions;
+    }
 }
