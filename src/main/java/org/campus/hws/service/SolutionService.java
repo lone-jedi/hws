@@ -3,6 +3,9 @@ package org.campus.hws.service;
 import org.campus.hws.dao.SolutionDao;
 import org.campus.hws.entity.Solution;
 
+import java.io.IOException;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class SolutionService {
@@ -17,4 +20,12 @@ public class SolutionService {
         System.out.println("Obtain solutions: " + solutions.size());
         return solutions;
     }
+
+    public void add(Solution solution) {
+        LocalDateTime now = LocalDateTime.now();
+        solution.setPublishDate(now);
+        solutionDao.add(solution);
+        System.out.println("Solution added");
+    }
+
 }

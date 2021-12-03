@@ -10,7 +10,14 @@ import java.util.List;
 
 public class JdbcSolutionDao implements SolutionDao {
     private static final SolutionRowMapper SOLUTION_ROW_MAPPER = new SolutionRowMapper();
+
+
     private static final String FIND_ALL_SQL = "SELECT id, github_link, author, comments, publish_date, task_name FROM Solution;";
+    private static final String ADD_SQL = """
+            INSERT INTO Solution (github_link, author, comments, publish_date, task_name) 
+            VALUES(?, ?, ?, ?, ?);
+            """;
+
 
     @Override
     public List<Solution> findAll() {
@@ -29,6 +36,24 @@ public class JdbcSolutionDao implements SolutionDao {
         }
 
         return null;
+    }
+
+    // db unit
+    // db rider
+    @Override
+    public void add(Solution solution) {
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(ADD_SQL)) {
+            preparedStatement.setString(1, solution.getGithubLink());
+            preparedStatement.setString(2, solution.getAuthor());
+            preparedStatement.setString(3, solution.getComment());
+            preparedStatement.setTimestamp(4, Timestamp.valueOf(solution.getPublishDate()));
+            preparedStatement.setString(5, solution.getTaskName());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error with solution insert", e);
+        }
     }
 
 

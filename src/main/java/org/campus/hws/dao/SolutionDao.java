@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface SolutionDao {
     List<Solution> findAll();
+
+    void add(Solution solution);
 }
