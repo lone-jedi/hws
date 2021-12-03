@@ -22,4 +22,19 @@ class JdbcSolutionDaoITest {
             assertNotNull(solution.getGithubLink());
         }
     }
+
+    @Test
+    public void testGetAllByTaskNameReturnsCorrectData() {
+        JdbcSolutionDao jdbcSolutionDao = new JdbcSolutionDao();
+        List<Solution> solutions = jdbcSolutionDao.findByTask("Linked list");
+
+        assertFalse(solutions.isEmpty());
+        for (Solution solution : solutions) {
+            assertNotEquals(0, solution.getId());
+            assertNotNull(solution.getAuthor());
+            assertNotNull(solution.getComment());
+            assertNotNull(solution.getPublishDate());
+            assertNotNull(solution.getGithubLink());
+        }
+    }
 }

@@ -56,6 +56,11 @@ public class JdbcSolutionDao implements SolutionDao {
         }
     }
 
+    @Override
+    public List<Solution> findByTask(String taskName) {
+        return null;
+    }
+
 
     private Connection getConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:postgresql://localhost:5432/hws",
