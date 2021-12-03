@@ -28,5 +28,9 @@ public class SolutionService {
         System.out.println("Solution with id " + id + "was removed");
     }
 
-
+    public String getRandomLink(String task) {
+        String randomLink = solutionDao.getRandomLink(task);
+        System.out.println("Get random link " + randomLink);
+        return randomLink;
+    }
 }

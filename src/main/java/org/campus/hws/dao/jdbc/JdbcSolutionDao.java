@@ -7,7 +7,8 @@ import org.campus.hws.entity.Solution;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Objects;
+import java.util.Random;
 
 public class JdbcSolutionDao implements SolutionDao {
     private static final SolutionRowMapper SOLUTION_ROW_MAPPER = new SolutionRowMapper();
@@ -61,7 +62,24 @@ public class JdbcSolutionDao implements SolutionDao {
         }
     }
 
+    @Override
+    public String getRandomLink(String task) {
+        Random random = new Random();
+        List<Solution> solutions = findAll();
+        ArrayList<String> links = new ArrayList<>();
+        int i = 0;
 
+        System.out.println("Task" + task);
+        for (Solution solution : solutions) {
+            if (task.trim().equals(solution.getTaskName().trim())) {
+                links.add(solution.getGithubLink());
+            }
+        }
+        int min = 0;
+        int max = links.size() - 1;
+        int randomIndex = random.nextInt((max - min + 1) + min);
+        return links.get(randomIndex);
+    }
 
     private Connection getConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:postgresql://localhost:5432/hws",

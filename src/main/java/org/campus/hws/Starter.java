@@ -3,7 +3,7 @@ package org.campus.hws;
 import org.campus.hws.dao.jdbc.JdbcSolutionDao;
 import org.campus.hws.service.SolutionService;
 import org.campus.hws.web.servlet.AddSolutionServlet;
-
+import org.campus.hws.web.servlet.GetRandomLinkServlet;
 import org.campus.hws.web.servlet.RemoveSolutionServlet;
 import org.campus.hws.web.servlet.ShowAllReviewsRequestServlet;
 import org.eclipse.jetty.server.Server;
@@ -24,14 +24,14 @@ public class Starter {
         ShowAllReviewsRequestServlet showAllReviewsRequestServlet = new ShowAllReviewsRequestServlet(solutionService);
         AddSolutionServlet addSolutionServlet = new AddSolutionServlet(solutionService);
         RemoveSolutionServlet removeSolutionServlet = new RemoveSolutionServlet(solutionService);
-
+        GetRandomLinkServlet getRandomLinkServlet = new GetRandomLinkServlet(solutionService);
 
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
 
         context.addServlet(new ServletHolder(showAllReviewsRequestServlet), "/");
         context.addServlet(new ServletHolder(addSolutionServlet), "/solution/add");
         context.addServlet(new ServletHolder(removeSolutionServlet), "/solution/remove");
-
+        context.addServlet(new ServletHolder(getRandomLinkServlet), "/get/link");
 
 
         Server server = new Server(8080);

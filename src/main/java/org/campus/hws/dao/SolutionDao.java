@@ -11,4 +11,5 @@ public interface SolutionDao {
 
     void removeSolution(int id);
 
+    String getRandomLink(String task);
 }
