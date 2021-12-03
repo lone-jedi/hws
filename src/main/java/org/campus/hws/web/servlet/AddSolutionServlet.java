@@ -22,22 +22,28 @@ public class AddSolutionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         PageGenerator pageGenerator = PageGenerator.instance();
-        String page = pageGenerator.getPage("add_solution.html", new HashMap<>() {});
+        String page = pageGenerator.getPage("add_solution.html", new HashMap<>() {
+        });
         resp.getWriter().write(page);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        Solution solution = getSolutionFromRequest(req);
-        solutionService.addSolution(solution);
-        PageGenerator pageGenerator = PageGenerator.instance();
-        String page = pageGenerator.getPage("add_solution.html", new HashMap<>() {});
-        resp.getWriter().write(page);
+        try {
+            Solution solution = getSolutionFromRequest(req);
+            solutionService.addSolution(solution);
+            resp.sendRedirect("reviews_list.html");
+        } catch (Exception e) {
+            PageGenerator pageGenerator = PageGenerator.instance();
+            String page = pageGenerator.getPage("add_solution.html", new HashMap<>() {
+            });
+            resp.getWriter().write(page);
+            resp.getWriter().write("<p></p><p align=\"center\"><strong>Your solution has not been added! Please, enter correct data in the fields</strong></p>");
+        }
     }
 
 
-
-    private Solution getSolutionFromRequest(HttpServletRequest req){
+    private Solution getSolutionFromRequest(HttpServletRequest req) {
         return Solution.builder().
                 id(Integer.parseInt(req.getParameter("id")))
                 .githubLink(req.getParameter("github_link"))
