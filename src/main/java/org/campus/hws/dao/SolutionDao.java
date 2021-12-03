@@ -7,5 +7,5 @@ import java.util.List;
 public interface SolutionDao {
     List<Solution> findAll();
 
-    void addSolution(Solution solution);
+    void add(Solution solution);
 }

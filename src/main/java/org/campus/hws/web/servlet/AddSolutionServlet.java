@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.Map;
 
 public class AddSolutionServlet extends HttpServlet {
     private SolutionService solutionService;
@@ -22,7 +22,7 @@ public class AddSolutionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         PageGenerator pageGenerator = PageGenerator.instance();
-        String page = pageGenerator.getPage("add_solution.html", new HashMap<>());
+        String page = pageGenerator.getPage("add_solution.html");
         resp.getWriter().write(page);
     }
 
@@ -30,25 +30,27 @@ public class AddSolutionServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
             Solution solution = getSolutionFromRequest(req);
-            solutionService.addSolution(solution);
+            solutionService.add(solution);
             resp.sendRedirect("reviews_list.html");
         } catch (Exception e) {
+            String errorMessage = "Your solution has not been added! Please, enter correct data in the fields";
             PageGenerator pageGenerator = PageGenerator.instance();
-            String page = pageGenerator.getPage("add_solution.html", new HashMap<>());
+
+            Map<String, Object> parameters = Map.of("errorMessage", errorMessage);
+            String page = pageGenerator.getPage("add_solution.html", parameters);
+
             resp.getWriter().write(page);
-            resp.getWriter().write("<p></p><p align=\"center\"><strong>Your solution has not been added! Please, enter correct data in the fields</strong></p>");
         }
     }
 
 
     private Solution getSolutionFromRequest(HttpServletRequest req) {
-        return Solution.builder().
-                id(Integer.parseInt(req.getParameter("id")))
+        // TODO: Remove id and publish date from template
+        return Solution.builder()
                 .githubLink(req.getParameter("github_link"))
                 .comment(req.getParameter("comment"))
                 .taskName(req.getParameter("task_name"))
                 .author(req.getParameter("author"))
-                .publishDate(LocalDateTime.parse(req.getParameter("publish_date")))
                 .build();
     }
 }
