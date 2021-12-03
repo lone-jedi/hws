@@ -22,8 +22,7 @@ public class AddSolutionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         PageGenerator pageGenerator = PageGenerator.instance();
-        String page = pageGenerator.getPage("add_solution.html", new HashMap<>() {
-        });
+        String page = pageGenerator.getPage("add_solution.html", new HashMap<>());
         resp.getWriter().write(page);
     }
 
@@ -35,8 +34,7 @@ public class AddSolutionServlet extends HttpServlet {
             resp.sendRedirect("reviews_list.html");
         } catch (Exception e) {
             PageGenerator pageGenerator = PageGenerator.instance();
-            String page = pageGenerator.getPage("add_solution.html", new HashMap<>() {
-            });
+            String page = pageGenerator.getPage("add_solution.html", new HashMap<>());
             resp.getWriter().write(page);
             resp.getWriter().write("<p></p><p align=\"center\"><strong>Your solution has not been added! Please, enter correct data in the fields</strong></p>");
         }
