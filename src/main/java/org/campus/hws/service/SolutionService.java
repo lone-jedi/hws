@@ -1,11 +1,13 @@
 package org.campus.hws.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.campus.hws.dao.SolutionDao;
 import org.campus.hws.entity.Solution;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Slf4j
 public class SolutionService {
     private SolutionDao solutionDao;
 
@@ -28,8 +30,7 @@ public class SolutionService {
 
     public List<Solution> findByTaskName(String taskName) {
         List<Solution> solutions = solutionDao.findByTaskName(taskName);
-        System.out.println(String.format("Obtain solutions by task '%s': %d",
-                taskName, solutions.size()));
+        log.info("Obtain solutions by task '{}': {}", taskName, solutions.size());
         return solutions;
     }
 }
