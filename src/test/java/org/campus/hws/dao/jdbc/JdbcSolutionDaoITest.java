@@ -26,7 +26,7 @@ class JdbcSolutionDaoITest {
     @Test
     public void testGetAllByTaskNameReturnsCorrectData() {
         JdbcSolutionDao jdbcSolutionDao = new JdbcSolutionDao();
-        List<Solution> solutions = jdbcSolutionDao.findByTask("Linked list");
+        List<Solution> solutions = jdbcSolutionDao.findByTaskName("Linked list");
 
         assertFalse(solutions.isEmpty());
         for (Solution solution : solutions) {

@@ -61,7 +61,7 @@ public class JdbcSolutionDao implements SolutionDao {
     }
 
     @Override
-    public List<Solution> findByTask(String taskName) {
+    public List<Solution> findByTaskName(String taskName) {
         List<Solution> solutions = new ArrayList<>();
 
         try (Connection connection = getConnection();

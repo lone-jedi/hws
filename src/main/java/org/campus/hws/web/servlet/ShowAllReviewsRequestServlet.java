@@ -24,7 +24,7 @@ public class ShowAllReviewsRequestServlet extends HttpServlet {
         List<Solution> solutions;
 
         if(req.getParameter("task") != null) {
-            solutions = solutionService.findByTask(req.getParameter("task"));
+            solutions = solutionService.findByTaskName(req.getParameter("task"));
         } else {
             solutions = solutionService.findAll();
         }

@@ -3,8 +3,6 @@ package org.campus.hws.service;
 import org.campus.hws.dao.SolutionDao;
 import org.campus.hws.entity.Solution;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -28,8 +26,8 @@ public class SolutionService {
         System.out.println("Solution added");
     }
 
-    public List<Solution> findByTask(String taskName) {
-        List<Solution> solutions = solutionDao.findByTask(taskName);
+    public List<Solution> findByTaskName(String taskName) {
+        List<Solution> solutions = solutionDao.findByTaskName(taskName);
         System.out.println(String.format("Obtain solutions by task '%s': %d",
                 taskName, solutions.size()));
         return solutions;

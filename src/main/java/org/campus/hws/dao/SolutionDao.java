@@ -9,5 +9,5 @@ public interface SolutionDao {
 
     void add(Solution solution);
 
-    List<Solution> findByTask(String taskName);
+    List<Solution> findByTaskName(String taskName);
 }
