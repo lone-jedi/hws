@@ -17,7 +17,7 @@ public class SolutionService {
 
     public List<Solution> findAll() {
         List<Solution> solutions = solutionDao.findAll();
-        System.out.println("Obtain solutions: " + solutions.size());
+        log.info("Obtain solutions: {}", solutions.size());
         return solutions;
     }
 
@@ -25,7 +25,7 @@ public class SolutionService {
         LocalDateTime now = LocalDateTime.now();
         solution.setPublishDate(now);
         solutionDao.add(solution);
-        System.out.println("Solution added");
+        log.info("Solution added: \n\t{}", solution);
     }
 
     public List<Solution> findByTaskName(String taskName) {
