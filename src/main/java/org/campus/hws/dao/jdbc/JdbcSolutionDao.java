@@ -17,6 +17,10 @@ public class JdbcSolutionDao implements SolutionDao {
             INSERT INTO Solution (github_link, author, comments, publish_date, task_name) 
             VALUES(?, ?, ?, ?, ?);
             """;
+    private static final String FIND_BY_TASK_SQL = """
+            SELECT id, github_link, author, comments, publish_date, task_name 
+            FROM Solution WHERE task_name=?;
+            """;
 
 
     @Override
@@ -54,6 +58,28 @@ public class JdbcSolutionDao implements SolutionDao {
             e.printStackTrace();
             throw new RuntimeException("Error with solution insert", e);
         }
+    }
+
+    @Override
+    public List<Solution> findByTaskName(String taskName) {
+        List<Solution> solutions = new ArrayList<>();
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_TASK_SQL);) {
+            preparedStatement.setString(1, taskName);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Solution solution = SOLUTION_ROW_MAPPER.mapRow(resultSet);
+                    solutions.add(solution);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error with find solution by task name", e);
+        }
+
+        
+        return solutions;
     }
 
 
